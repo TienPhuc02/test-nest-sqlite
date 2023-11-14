@@ -1,0 +1,7 @@
+{
+  "type": "sqlite",
+  "database": "dbTest.db",
+  "entities": ["dist/**/*.entity{.ts,.js}"],
+  "synchronize": true,
+  "logging": true
+}
