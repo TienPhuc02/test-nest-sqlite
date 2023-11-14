@@ -4,14 +4,20 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'D:/WorkSpace/test-nest-sqlite/dbTest.db',
-      entities: [User],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: 'sqlite',
+        database: configService.get('DB_URI'),
+        entities: [User],
+        synchronize: true,
+      }),
+      inject: [ConfigService],
     }),
+    ConfigModule.forRoot({ isGlobal: true }),
     UsersModule,
   ],
   controllers: [AppController],
