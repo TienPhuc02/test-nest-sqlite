@@ -11,8 +11,22 @@ export class UsersService {
     @InjectRepository(User)
     private usersRepository: Repository<User>,
   ) {}
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create(createUserDto: CreateUserDto) {
+    const user = new User();
+    user.userName = createUserDto.phoneNumber;
+    user.firstName = createUserDto.firstName;
+    user.lastName = createUserDto.lastName;
+    user.password = createUserDto.password;
+    user.passwordConfirm = createUserDto.passwordConfirm;
+    user.emailAddress = createUserDto.emailAddress;
+    user.phoneNumber = createUserDto.phoneNumber;
+    user.gender = createUserDto.gender;
+    console.log(
+      '🚀 ~ file: users.service.ts:16 ~ UsersService ~ create ~ user:',
+      user,
+    );
+    await this.usersRepository.save(user);
+    return 'create success';
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

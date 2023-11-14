@@ -4,9 +4,12 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  UpdateDateColumn,
+  CreateDateColumn,
+  DeleteDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity('Users')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -41,4 +44,18 @@ export class User {
   @ManyToOne(() => User, (user) => user.id)
   @JoinColumn({ name: 'deletedById' })
   deletedBy: User;
+  @CreateDateColumn({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
+  createDate: Date;
+
+  @UpdateDateColumn({
+    type: 'datetime',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+  })
+  updateDate: Date;
+  @DeleteDateColumn({
+    type: 'datetime',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  deleteDate: Date;
 }

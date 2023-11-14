@@ -3,8 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
-import { User } from './users/entities/user.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { User } from './users/entities/user.entity';
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
